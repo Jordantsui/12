@@ -1,0 +1,412 @@
+
+body{
+    background: #EFEFEF;
+    /*color:red;*/
+    margin:0;
+}
+/*color表示字的颜色*/
+
+a{
+    color:inherit;
+}
+
+.clearfix::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.topNavBar{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+/*position表示topNavBar脱离文档流，即此时topNav的父元素body的高度就不再包括topNavBar了*/
+/*top和left是position的配套*/
+/*加完position之后，滚动页面，发现导航条没有随之滚动，即已脱离*/
+/*但这个时候会出现一个问题，即导航条紧缩了，原来占了一整行，现在只有一小块*/
+/*此时可将width设为100%，让他占住一整行*/
+/*但又出现新问题，width是100%，再加上左右的padding，已超过100%*/
+/*若取消左右的padding呢，又不好看*/
+/*此时可建立一个新的div，class是topnav-in，是topnavbar的子元素，包含a和nav*/
+/*取消topnavbar的左右padding，在这个新的div上加左右padding可解之*/
+/*width会造成意想不到的bug，轻易不要写*/
+
+.topnav-in{
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.topNavBar a{
+    float:left;
+    text-decoration: none;
+}
+/*由于topNavBar与a不再是父子关系，所以取消">"*/
+
+.topNavBar nav{
+    float:right;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.topNavBar nav>ul{
+    list-style: none; margin:0; padding: 0; 
+    /*border: 1px solid red;*/
+}
+
+.topNavBar nav>ul>li{
+    float:left; 
+    /*border:1px solid green;*/
+}
+
+.topNavBar nav>ul>li>a{
+    font-size: 12px;
+    color: #B7B7B7;
+    text-decoration: none;
+    margin-left: 17px;
+    margin-right: 17px;
+    font-weight: bold;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: block;
+}
+
+.topNavBar nav>ul>li>a:hover{
+    border-bottom: 3px solid #e06567;
+}
+
+.topNavBar .logo{
+    font-size: 24px;
+    font-family: "Arial Black";
+    padding-top: 3px;
+    padding-bottom: 2px;
+}
+.topNavBar .logo .rs{
+    margin-right: 4px;
+    color:#E6686A;
+}
+
+.topNavBar .logo .card{
+    color: #9A9DA2;
+}
+
+.banner{
+    height:515px;
+    background-image:url(./back.jpg);
+    background-position: center center;
+    background-size: cover;
+}
+/*height会造成意想不到的bug，轻易不要写*/
+/*position表示图片居中，第一个center是水平方向，第二个是垂直方向*/
+/*cover表示图片按比例缩放*/
+
+.banner .mask{
+    height: 515px;
+    background-color: rgba(0,0,0,0.8);
+}
+/*rgba表示调整透明的灰度*/
+
+.userCard{
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FFFFFF;
+    box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.26);
+}
+/*两句margin将此card水平居中*/
+
+.userCard .welcome{
+    background: #E6686A;
+    color:white;
+    padding: 4px 16px;
+    line-height: 22px;
+    /* width:70px;
+    height:29px; */
+    display: inline-block;
+    /* line-height: 29px;
+    text-align: center; */
+    position: relative;
+    margin-bottom: 10px;
+}
+/*span类型无法指定宽度和高度，所以要把span变成inline-block类型，width和height才有用*/
+/*line-height与height一致，垂直居中；text-align用于水平居中*/
+/*指定宽高易出bug，所以我们可看需要的宽高与现有宽高的差值是多少，添加padding*/
+/*line-height:22px;这一句是为了避免机器不同产生的误差*/
+
+.userCard .welcome .triangle{
+    display: block;
+    border:10px solid transparent;
+    width:0px;
+    border-left-color: #E6686A;
+    border-top-width: 0px;
+    /*中心到上边（上border顶端）的距离*/
+    position: absolute;
+    left:4px;
+    /*bottom:0;还是在里面*/
+    top:100%;
+}
+/*中间一个长方形，上下左右四个border，中间长方形宽高均为0（div若无元素，则高自然为0，所以未写；宽自适应，得写），上border消失，下和右border无色，剩下的左border即为所求图形*/
+/*另一种脱离文档流的写法，absolute可以使triangle相对于祖先中的第一个relative定位*/
+/*span里加div会出bug，但是可曲线救国，span加display:block，就是div*/
+/*为什么不用span?*/
+
+.userCard .picture{
+    float:left;
+}
+
+.userCard .text{
+    float:left;
+    margin-left: 65px;
+    width:470px;
+} 
+/*也可以用padding*/
+
+.userCard .text h1{
+    margin-top:18px;
+} 
+
+.pictureAndText{
+    padding:50px;
+}
+/*常用技巧：div加padding会变胖，此时可以在此div内添加一个无用的div包括所有元素，在里面这个div加padding*/
+
+*{
+    margin: 0;
+    padding: 0;
+}
+/*包括h1,h2,h3,p等*/
+
+hr{
+    height:0;
+    border:none;
+    border-top:1px solid #DEDEDE;
+}
+
+.userCard .text hr{
+    margin:20px 0;
+}
+
+.userCard dl dt,
+.userCard dl dd{
+    float: left;
+    padding:5px 0;
+}
+
+.userCard dl dt{
+    width:30%;
+    font-weight: bold;
+}
+
+.userCard dl dd{
+    width:70%;
+    color:#9da0a7;
+}
+
+.userCard > footer.media{
+    background: #E6686A;
+    text-align: center;
+}
+
+.userCard > footer.media>a{
+    /* border:1px solid black; */
+    display: inline-block;
+    width:40px;
+    line-height:30px;
+    padding:5px 0;
+    border-radius: 50%;
+    margin:16px;
+}
+/*radius这一句使方框变圆框*/
+/*先写height无法居中（height=line-height失效），可以用line-height=svg的height，再用padding补充*/
+/*一开始方框无法包裹图标，加了display后可以了*/
+
+.userCard > footer.media>a：hover{
+    background: #CF5D5F;
+}
+
+.userCard svg{
+    width:30px;
+    height:30px;
+    fill:white;
+    vertical-align: top;
+}
+/*vertical这一句使得上下边距一样，暂不解释*/
+
+body main .downloadResume{
+    font-size: 14px;
+    line-height: 16px;
+    padding: 21px 55px;
+    border: 1px solid #CDCFD1;
+    background: #EFEFEF;
+    display:inline-block;
+    border-radius: 2px;
+    color:#3d4451;
+    font-weight: bold;
+    margin: 32px 0;
+    transition: box-shadow 0.2s;
+}
+/*内联元素的左右padding加了有用，上下padding加了也没用，撑不起来，所以要加display:inline-block*/
+/*这个时候该按钮要左右居中，加margin:0 auto; 没用，因为inline-block左右本来就不确定，所以要在他的父元素（需是一个block元素）上加text-align:center;*/
+/*border-radius: 2px;用于加圆角*/
+/*按钮的阴影效果可搜css shadow generator,选择box-shadow*/
+/*transition表示出现shadow的过渡*/
+
+body main .downloadResume:hover{
+    box-shadow: 0px 5px 9px 1px rgba(0,0,0,0.2);
+}
+
+body main .self-introduction{
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    line-height: 1.8;
+    font-size: 18px;
+}
+/*从上一节的注释中可知，两个margin是用来居中的，但是是将p元素居中，要想将p中的文字居中，还需text-align*/
+
+section.skills,
+section.portfolio{
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+}
+
+section.skills > h2,
+section.portfolio > h2{
+    text-align: center;
+    color: #3d4451;
+    font-size: 34px;
+    line-height: 1.2;/*????*/
+    font-weight: 600;
+}
+section.skills h3{
+    font-size: 14px;
+    line-height: 1.1;
+    padding-right: 40px;/*???*/
+}
+section.skills > ol{
+    background: white;
+    box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.26);
+    padding: 42px 50px 10px;
+    margin-top: 30px;
+}
+/*此padding调整的是具体的skills与边框的距离*/
+ul,ol{
+    list-style: none;
+}
+/*取消ul,ol的默认样式*/
+
+section.skills > ol > li{
+    float:left;
+    width:48%;
+    /* box-sizing:border-box;
+    padding-right: 40px; */
+}
+/*width设为50%是为了让一行显示两个li*/
+/*li包括h3和div时，li上直接加padding-right，由于其width已经是50%了，所以会把第二个li挤到下一行*/
+/*这时可以在li里面再加个div，由此div包裹h3和进度条div，在此div上加padding-right，这时进度条div会收缩*/
+/*究其原因，应该是因为此div继承了li的width，但是继承过来的宽度不是他自己的width，而是作为自己的width+padding+margin的总和，此时再设置padding-right，则此div的width等于继承宽度-padding-margin*/
+/*而进度条width继承了此div的width，所以显示出来的进度条div的长度（即进度条div的width）会小于50%*/
+/*这个时候若不想麻烦再加个div，可以更改盒模型，改成box-sizing:border-box，这个模型的width包含了border和padding，直接加padding即可，这是第二种方法*/
+
+/*第三种方法是把li的width设为48%，左边的li左浮，右边的li右浮，自然中间就有空隙了*/
+section.skills > ol > li:nth-child(even){
+    float:right;
+} 
+/*even是偶数，odd是奇数*/
+/*:nth-child(even)是一种伪类，可能存在可能不存在；:hover也是这样的伪类；::before叫伪元素（确实存在）*/
+
+section.skills .processBar{
+    height: 5px;
+    background: #FAE1E1;
+    border-radius: 2px;
+    margin: 4px 0 40px;
+}
+/*margin表示字与条之间的间距*/
+section.skills .processBar > .process{
+    height:100%;
+    width:70%;
+    background: #E6686A;
+    border-radius: 2px;
+}
+h1,h2,h3,h4,h5,h6{
+    font-weight: normal;
+}
+
+section.portfolio{
+    text-align: center;
+    margin-bottom: 100px;
+}
+section.portfolio > nav{
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 32px;
+}
+section.portfolio > nav >ol{
+    /* margin: 0 auto; */
+    display: inline-block;
+    vertical-align: top;
+}
+/*display之前，由于ol是块级元素，且未指定宽度，所以ol的宽度实际占据一整行，此时li都在最左边，无法水平居中*/
+/*未解决此问题提，display，ol的宽度就收缩，这个时候他是个内联元素了，用text-align将nav居中即可*/
+/*注：nav默认是block元素，但是包裹的ol现在是内联元素了，所以nav的宽度也就此确定了？*/
+/*display: inline-block之后，下面会出现一行莫名其妙的空隙，可用vertical-align: top将此空隙消除；把这二者理解为固定搭配即可*/
+section.portfolio>nav>ol>li{
+    float:left;
+    margin-left: 40px;
+    cursor: pointer;
+}
+/*margin-left用于将li隔开，但最左边的li左边会出现空隙，使居中后的ol左右不对称*/
+/*此时可将第一个li左边的margin取消*/
+/*cursor: pointer;表示鼠标放在li上时，显示手型*/
+section.portfolio>nav>ol>li:nth-child(1){
+    margin-left: 0;
+}
+/*nth-child(1)也可写为first-child*/
+section.portfolio>nav .bar{
+    height: 5px;
+    background: white;
+    margin-top: 5px;
+    margin-bottom: 28px;
+    border-radius: 2px;
+}
+/*加完bar之后，发现bar的宽度自动和nav相同，太宽了，这时我们将nav也变为inline-block，他的宽度就自动和ol相等了*/
+/*nav也是inline-block了，所以这个时候text-align应加在portfolio上*/
+/*若在portfolio上不加center，则居中失效，亲测*/
+/*nav的宽度由文档流决定???(宽度是和最宽的子元素相同，还是从最左边到最右边，这里有些模糊)*/
+
+section.portfolio>nav .bar-in{
+    height: 100%;
+    background: #E6686A;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+/*transition表示过渡，即动画效果*/
+section.portfolio>nav .bar.state-1 .bar-in{
+    margin-left: 0;
+    width: 50px;
+}
+/*.bar和.state-1之间没有空格，表示同时符合两种类*/
+section.portfolio>nav .bar.state-2 .bar-in{
+    margin-left: 65px;
+    width: 50px;
+}
+section.portfolio>nav .bar.state-3 .bar-in{
+    margin-left: 140px;
+    width: 96px;
+}
+
+section.portfolio .works{
+    position: relative;
+}
+section.portfolio .works .big,
+section.portfolio .works .small{
+    position: absolute;
+}
